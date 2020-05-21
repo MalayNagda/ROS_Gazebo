@@ -18,6 +18,6 @@ The desired linear velocity and angular velocity values were specified in arrays
 ![](images/turtlesim_letterN.PNG#center)
 
 <p align="center">
-  ![](images/turtlesim_letterN.PNG#center)
+  ![](images/turtlesim_letterN.PNG)
 </p>
 
