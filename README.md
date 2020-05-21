@@ -4,7 +4,7 @@
 ## Overview
 The entire project has three sections-
 1. [Introduction to ROS](##-1.-introduction-to-ros)
-2. [World building in Gazebo simulator and robot interaction in it](#-world-building-in-gazebo-simulator-and-robot-interaction-in-it)
+2. [World building in Gazebo simulator and robot interaction in it](#world-building-in-gazebo-simulator-and-robot-interaction-in-it)
 3. SLAM, object detection and tracking
 
 ## 1. Introduction to ROS
@@ -34,4 +34,4 @@ In order to get the output as seen above, run the following two lines, each in a
 rosrun turtlesim turtlesim_node
 rosrun turtle_description my_initials_turtlesim.py
 ```
-# World building in Gazebo simulator and robot interaction in it
+#World building in Gazebo simulator and robot interaction in it
