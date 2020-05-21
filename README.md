@@ -3,14 +3,11 @@
  
 ## Overview
 The entire project has three sections-
-
-[Intro to ROS](#-introduction-to-ros)
-
-[World building in Gazebo simulator and robot interaction](#-world-building-in-gazebo-simulator-and-robot-interaction-in-it-)
-
+1. [Intro to ROS](#-1-introduction-to-ros)
+2. [World building in Gazebo simulator and robot interaction](#-2-world-building-in-gazebo-simulator-and-robot-interaction-in-it)
 3. SLAM, object detection and tracking
 
-# Introduction to ROS
+## 1 Introduction to ROS
 The purpose of this assignment was to get acquainted with the fundamentals of ROS- how to create a ROS workspace, packages, topics, nodes, messages, publishing and subscribing messages.
 The objective was to write a node that makes the turtlesim write the first letter of my last name which is ‘N’. First, I created a workspace and package 'nodes' within that workspace and then made a node ‘my_initials_turtlesim.py’ in that package. This node can be seen in the similar folder structure above. 
 
@@ -37,4 +34,4 @@ In order to get the output as seen above, run the following two lines, each in a
 rosrun turtlesim turtlesim_node
 rosrun turtle_description my_initials_turtlesim.py
 ```
-# world building in gazebo simulator and robot interaction in it
+## 2 World building in Gazebo simulator and robot interaction in it
