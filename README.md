@@ -34,4 +34,4 @@ In order to get the output as seen above, run the following two lines, each in a
 rosrun turtlesim turtlesim_node
 rosrun turtle_description my_initials_turtlesim.py
 ```
-# 2- World building in Gazebo and robot interaction in it
+## 2- World building in Gazebo and robot interaction in it
