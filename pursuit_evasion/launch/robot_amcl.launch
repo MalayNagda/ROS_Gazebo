@@ -1,0 +1,136 @@
+<launch>
+
+ <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <!-- <arg name="first_bot"  default="pursuer"/> -->
+  <!-- <arg name="second_bot"  default="evader"/> -->
+  
+  <arg name="first_bot"  default="tb3_0"/>
+  <arg name="second_bot"  default="tb3_1"/>
+  
+  <arg name="map_file" default="$(find turtlebot3_navigation)/maps/map.yaml"/>
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
+  <arg name="world_index" default="0"/>
+  <!-- <arg name="world_name"/> -->
+  <arg name="gui" default="false"/>
+  <!-- <arg name="world_name"/> -->
+
+  <arg name="first_bot_x_pos" default="-1.0"/>
+  <arg name="first_bot_y_pos" default="0.0"/>
+  <arg name="first_bot_z_pos" default="0.0"/>
+  <arg name="first_bot_yaw"   default="0.0"/>
+
+ <!--  <arg name="first_bot_x_pos" default="-3.0"/>
+  <arg name="first_bot_y_pos" default="1.0"/>
+  <arg name="first_bot_z_pos" default=" 0.0"/>
+  <arg name="first_bot_yaw"   default="0.0"/> -->
+
+  <arg name="second_bot_x_pos" default="0.0"/>
+  <arg name="second_bot_y_pos" default="0.0"/>
+  <arg name="second_bot_z_pos" default="0.0"/>
+  <arg name="second_bot_yaw"   default="0.0"/>
+
+
+   <arg name="tb3_0_init_x" default="-1.0"/>
+  <arg name="tb3_0_init_y" default="0.0"/>
+  <arg name="tb3_0_init_a" default="0.0"/>
+
+  <arg name="tb3_1_init_x" default="0.0"/>
+  <arg name="tb3_1_init_y" default="0.0"/>
+  <arg name="tb3_1_init_a" default="0.0"/>
+
+   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
+  </node>
+
+
+  <group if="$(eval arg('world_index') == 0)">
+    
+      <arg name="world_name" value="$(find pursuit_evasion)/worlds/enclosed_playground.world"/>
+       <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>   
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include> 
+  </group>
+  
+  <group if="$(eval arg('world_index') == 1)"> 
+      <arg name="world_name" value="$(find pursuit_evasion)/worlds/new_home.world"/>
+       <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>   
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include> 
+  </group>
+
+ <group ns = "$(arg first_bot)">
+
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+  
+     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="$(arg first_bot)" />
+    </node>
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg first_bot) -x $(arg first_bot_x_pos) -y $(arg first_bot_y_pos) -z $(arg first_bot_z_pos) -Y $(arg first_bot_yaw) -param robot_description" />
+
+    <node pkg="amcl" type="amcl" name="amcl_$(arg first_bot)">
+      <!-- Load default parameters for turtlebot -->
+      <rosparam file="$(find pursuit_evasion)/params/amcl_params.yaml" command="load" />
+      <param name="initial_pose_x" value="$(arg tb3_0_init_x)"/>
+      <param name="initial_pose_y" value="$(arg tb3_0_init_y)"/>
+      <param name="initial_pose_a" value="$(arg tb3_0_init_a)"/>
+
+      <param name="odom_frame_id"  value="$(arg first_bot)/odom"/>
+      <param name="base_frame_id"  value="$(arg first_bot)/base_footprint"/>
+
+      <!-- Use the single map server -->
+      <remap from="static_map" to="/static_map"/>
+    </node>
+
+</group>
+
+
+<group ns="$(arg second_bot)">
+        <param name="tf_prefix" value="$(arg second_bot)"/>
+        <include file="$(find pursuit_evasion)/launch/spawn_human.launch">
+            <arg name="x" value="$(arg second_bot_x_pos)"/>
+            <arg name="y" value="$(arg second_bot_y_pos)"/>
+            <arg name="z" value="$(arg second_bot_z_pos)"/>
+            <arg name="yaw" value="$(arg second_bot_yaw)"/>
+            <arg name="tf_prefix" value="$(arg second_bot)"/>
+        </include>
+
+        <node pkg="amcl" type="amcl" name="amcl_$(arg second_bot)">
+            <rosparam file="$(find pursuit_evasion)/params/amcl_params.yaml" command="load" />
+            <param name="initial_pose_x" value="$(arg tb3_1_init_x)"/>
+            <param name="initial_pose_y" value="$(arg tb3_1_init_y)"/>
+            <param name="initial_pose_a" value="$(arg tb3_1_init_a)"/>
+
+            <param name="odom_frame_id"  value="$(arg second_bot)/odom"/>
+            <param name="base_frame_id"  value="$(arg second_bot)/base_footprint"/>
+
+            <remap from="static_map" to="/static_map"/>
+        </node>
+    </group>
+
+<include file="$(find pursuit_evasion)/launch/navigation/move_base.launch">
+  <arg name="robot_namespace" value="$(arg first_bot)" />
+  <arg name="move_forward_only" value="true"/>
+  </include>
+
+<include file="$(find pursuit_evasion)/launch/navigation/move_base.launch">
+  <arg name="robot_namespace" value="$(arg second_bot)" />
+  <arg name="move_forward_only" value="true"/>
+  </include>
+
+  <group if="$(arg open_rviz)"> 
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+         args="-d $(find pursuit_evasion)/rviz/amcl.rviz"/>
+  </group> 
+</launch>

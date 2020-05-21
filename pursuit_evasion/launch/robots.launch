@@ -1,0 +1,53 @@
+<launch>
+
+ <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="first_tb3"  default="pursuer"/>
+  <arg name="second_bot"  default="evader"/>
+
+  <arg name="first_tb3_x_pos" default="-7.0"/>
+  <arg name="first_tb3_y_pos" default="-3.0"/>
+  <arg name="first_tb3_z_pos" default=" 0.0"/>
+  <arg name="first_tb3_yaw"   default=" 1.57"/>
+
+  <arg name="x_person" default="-7.0"/>
+  <arg name="y_person" default="-1.0"/>
+  <arg name="z_person" default="0.0"/>
+  <arg name="yaw_person" default="1.57"/>
+  <arg name="map_file" default=""/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find pursuit_evasion)/worlds/enclosed_playground.world"/>
+    <!-- <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_house.world"/> -->
+    <!-- <arg name="world_name" value="$(find pursuit_evasion)/worlds/g4/model.sdf"/> -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="false"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include> 
+
+  
+  <group ns = "$(arg first_tb3)">
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="$(arg first_tb3)" />
+    </node>
+    
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg first_tb3) -x $(arg first_tb3_x_pos) -y $(arg first_tb3_y_pos) -z $(arg first_tb3_z_pos) -Y $(arg first_tb3_yaw) -param robot_description" />
+  </group>
+
+    <group ns="$(arg second_bot)">
+        <param name="tf_prefix" value="$(arg second_bot)"/>
+        <include file="$(find pursuit_evasion)/launch/spawn_human.launch">
+            <arg name="x" value="$(arg x_person)"/>
+            <arg name="y" value="$(arg y_person)"/>
+            <arg name="z" value="$(arg z_person)"/>
+            <arg name="yaw" value="$(arg yaw_person)"/>
+            <arg name="tf_prefix" value="$(arg second_bot)"/>
+            
+        </include>
+    </group>
+
+</launch>

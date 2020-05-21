@@ -1,0 +1,31 @@
+<launch>
+	 <arg name="world_index" default="0"/>
+	<!-- <group ns="tb3_0">
+		<node name='nav_test' type='goal_pub.py' pkg="pursuit_evasion" output="screen"/>
+	</group> -->
+
+  <group if="$(eval arg('world_index') == 0)"> 
+	  <group ns="tb3_1">
+	    <node name='nav_test' type='move_evader.py' pkg="pursuit_evasion" output="screen">
+	      
+	        <param name="goalListX" value="[2.69, 4.68, 3.6, 1.13, -0.83, -2.47, -5.49, -6.28, -4.24]"/>
+	        <param name="goalListY" value="[1.34, -1.5, -3.76, -4.48, -2.86, 0.76, 1.85, -1.19, -3.73]"/>
+	      
+	    </node>
+	  </group>
+  </group>
+
+  <group if="$(eval arg('world_index') == 1)"> 
+	  <group ns="tb3_1">
+	    <node name='nav_test' type='move_evader.py' pkg="pursuit_evasion" output="screen">
+	      
+	        <!-- <param name="goalListX" value="[2.71, 2.78, 0, 5.69, 8.22, 8.34]"/>
+	        <param name="goalListY" value="[-1.54, -3.67, -4.09, -1.87, -0.27, -4.78]"/> -->
+	        <param name="goalListX" value="[-0.7, 2.46, -0.839, -0.772, -0.289, 2.63, 4.18, 6.92, 8.9, 4.95, 9.57, 7.94, 4.0, 0.0743]"/>
+	        <param name="goalListY" value="[-2.53, -2.78, -3.72, -4.79, -6.11, -4.2, -2.43, -6.05, -5.09, -0.734, 0.0858, -1.87, -2.25, -0.0969]"/>
+	      
+	    </node>
+	  </group>
+  </group>
+
+</launch>
