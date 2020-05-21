@@ -6,7 +6,7 @@ The entire project has three sections-
 
 [Intro to ROS](#-introduction-to-ros)
 
-[World building in Gazebo simulator and robot interaction](#-world-building-in-gazebo-simulator-and-robot-interaction-in-it)
+[World building in Gazebo simulator and robot interaction](#-world-building-in-gazebo-simulator-and-robot-interaction-in-it-)
 
 3. SLAM, object detection and tracking
 
