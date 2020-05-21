@@ -2,7 +2,10 @@
  A project showcasing perception in robotics with ROS, Gazebo simulaor and OpenCV. It involves simulation for navigation, SLAM, object detection and tracking using turtlebot3 ROS package.
  
 ## Overview
-
+The entire project has three sections-
+1. Introduction to ROS
+2. World building in Gazebo simulator and robot interaction in it
+3. SLAM, object detection and tracking
 
 ## 1. Introduction to ROS
 The purpose of this assignment was to get acquainted with the fundamentals of ROS- how to create a ROS workspace, packages, topics, nodes, messages, publishing and subscribing messages.
