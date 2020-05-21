@@ -20,8 +20,10 @@ The desired linear velocity and angular velocity values were specified in arrays
 <p align="center">
   <img src="images/turtlesim_letterN.PNG">
 </p>
+
 In order to get the output as seen above, run the following two lines, each in a separate terminal tab/window-
-'''
+
+```
 rosrun turtlesim turtlesim_node
 rosrun turtle_description my_initials_turtlesim.py
-'''
+```
