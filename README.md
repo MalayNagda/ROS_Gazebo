@@ -15,8 +15,6 @@ I published just the z component of angular velocity for making the turtle take 
 
 The desired linear velocity and angular velocity values were specified in arrays, one for each vector and published the elements of both the arrays alternatively, first an element of angular velocity array (ang_z) and then an element of linear velocity array (vel_x). The elements of vel_x array were treated as distances to be moved.
 
-![](images/turtlesim_letterN.PNG#center)
-
 <p align="center">
   <img src="images/turtlesim_letterN.PNG">
 </p>
