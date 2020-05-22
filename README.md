@@ -114,6 +114,4 @@ rosrun map_server map_saver -f
 ```
 
 The map created is shown in the figure below-
-<p align="center">
-  <img src="images/SLAM_map.png">
-</p>
+
