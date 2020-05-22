@@ -43,7 +43,7 @@ The world which is a house-like structure was built with the help of the followi
 2.	Building Editor- http://gazebosim.org/tutorials?tut=building_editor&cat=build_world
 
 <p align="center">
-  <img src="images/house1.PNG">
+  <img src="images/house1.png">
 </p>
 <p align="center">
   <img src="images/house2.PNG">
