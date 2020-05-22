@@ -124,6 +124,10 @@ roslaunch pursuit_evasion robot_mapping.launch world_index:=0 gui:=true
 roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 rosrun map_server map_saver -f
 ```
+The turtlebot3 creating a map of the Gazebo world using SLAM can be seen below-
+<p align="center">
+  <img src="images/SLAM_mapping.gif">
+</p>
 
 The map created is shown in the figure below-
 <p align="center">
