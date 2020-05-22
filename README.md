@@ -146,6 +146,7 @@ roslaunch pursuit_evasion sim.launch world_index:=0 gui:=true
 roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:= path/to/map.yaml
 ```
 
+We can see the turtlebot3 navigating autonomously in the Gazebo world as well as as SLAM visualization of the same in the rviz window below-
 <p align="center">
   <img src="images/SLAM_ROS1.gif">
 </p>
