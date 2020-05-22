@@ -129,15 +129,37 @@ The black borders in the figure represent the boundaries of the obstacle as dete
 
 ### Autonomous navigation 
 
+After the map is created, turtlebot3 can use it to move around the world autonomously.
+
+#### Process explanation
 The " turtlebot3_navigation " package provides an abstract way to load the map you created above and to use it with the " move_base " package which is a part of the ROS navigation stack to navigate in the known environment (the map created previously) by sending goal locations (using the ‘2D Nav Goal’ button) to turtlebot3 using RViz. This step helped me in understanding how the navigation stack works and how to autonomously move in a known map while avoiding obstacles. 
 
-The reference used for this process is- https://github.com/ROBOTIS-GIT/emanual/blob/master/docs/en/platform/turtlebot3/simulation.md#virtual-navigation-with-turtlebot3
-. The move_base package can be found at- https://github.com/ros-planning/navigation with more details at- http://wiki.ros.org/move_base.
+The reference used for this process is- https://github.com/ROBOTIS-GIT/emanual/blob/master/docs/en/platform/turtlebot3/simulation.md#virtual-navigation-with-turtlebot3. The move_base package can be found at- https://github.com/ros-planning/navigation with more details at- http://wiki.ros.org/move_base.
 
 First, we launch the world file and then load the map created previously using the turtlebot3_navigation package which opens a rviz window. In the rviz window goals are provided for the turtlebot3 to navigate in the world while avoiding obstacles. 
 
-The steps for this process are-
+#### How to run
+
+he steps for this process are-
 ```
 roslaunch pursuit_evasion sim.launch world_index:=0 gui:=true
 roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:= path/to/map.yaml
 ```
+### Object detection and tracking
+
+Once, the turtlebot3 can move autonomously around the world, the next task is to make the turtlebot3 detect the person in the Gazebo world and track it continuously.
+
+#### Process explanation
+
+A world file provided by Professor (with turtlebot3 and a human model) is launched along with the map created earlier. The task is for the turtlebot3 to detect and track the human using the camera attached previously on turtlebot3. In order to do so, firstly, a node is created which subscribes to the image topic of the turtlebot3 camera. But ROS produces image messages of the form ‘sensor_msgs/Image’ which are not compatible with OpenCV. The cv_bridge package helps in converting the ROS image messages to OpenCV image representation which can used for perception. 
+
+The image converted by ‘cv_bridge’ is used to detect and track the person model if present in the image. 
+The algorithm here used for object detection is YOLOv2. The YOLOv2 weights were downloaded from https://pjreddie.com/media/files/yolov2.weights. Darkflow framework (https://github.com/thtrieu/darkflow) is used for executing YOLOv2 which is a Tensorflow version of Darknet. Once the image taken from the turtlebot3 camera is converted to the required form using cv_bridge, it is then passed into tfnet.return_predict() in the form of a numpy array which returns what kind of object is detected by the turtlebot.
+YOLO takes entire image in a single instance and predicts the bounding box coordinates(top_x,top_y,btm_x,btm_y) and class probabilities for these boxes. The frames detected are shown in the pictures below-
+
+<p align="center">
+  <img src="images/YOLO1.png">
+</p>
+<p align="center">
+  <img src="images/YOLO2.png">
+</p>
