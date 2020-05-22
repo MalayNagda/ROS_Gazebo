@@ -42,6 +42,8 @@ The world which is a house-like structure was built with the help of the followi
 1.	Building a world- http://gazebosim.org/tutorials?tut=build_world&cat=build_world
 2.	Building Editor- http://gazebosim.org/tutorials?tut=building_editor&cat=build_world
 
+Some views of the house structure I built in Gazebo simulator are as seen below-
+
 <p align="center">
   <img src="images/house1.png">
 </p>
