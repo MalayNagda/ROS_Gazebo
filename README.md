@@ -132,7 +132,7 @@ The black borders in the figure represent the boundaries of the obstacle as dete
 The " turtlebot3_navigation " package provides an abstract way to load the map you created above and to use it with the " move_base " package which is a part of the ROS navigation stack to navigate in the known environment (the map created previously) by sending goal locations (using the ‘2D Nav Goal’ button) to turtlebot3 using RViz. This step helped me in understanding how the navigation stack works and how to autonomously move in a known map while avoiding obstacles. 
 
 The reference used for this process is- https://github.com/ROBOTIS-GIT/emanual/blob/master/docs/en/platform/turtlebot3/simulation.md#virtual-navigation-with-turtlebot3
-The move_base package can be found at- https://github.com/ros-planning/navigation with more details at- http://wiki.ros.org/move_base.
+. The move_base package can be found at- https://github.com/ros-planning/navigation with more details at- http://wiki.ros.org/move_base.
 
 First, we launch the world file and then load the map created previously using the turtlebot3_navigation package which opens a rviz window. In the rviz window goals are provided for the turtlebot3 to navigate in the world while avoiding obstacles. 
 
