@@ -102,9 +102,13 @@ The purpose of this project was to learn to use SLAM using the gmapping package 
 
 The objective was to assist navigation for both pursuer and evader with the help of the map created using SLAM. Turtlebot3 acts as a Pursuer and the human model as an Evader. A node was created for tracking the evader and then use the bounding box, localization information to send goals to the pursuer to track the evader.
 
+### Process explanation
+
 The slam_gmapping package can be found at- https://github.com/ros-perception/slam_gmapping with more details at- http://wiki.ros.org/gmapping.
 
 First, the Gazebo simulator with a world and a gmapping node to start the process of creating a map was initiated using a launch file provided by the Professor and can be found in the 'pursuit_evasion' package. This is followed by using the 'turtlebot3_teleop package' which allows the teleoperating the turtlebot3 using the keyboard to move the turtlebot3 around the Gazebo world to create a map of that world space. At the same time, this process is visualized in rviz in real-time to see how much of the world has already been mapped by the turtlebot3 and end teleoperating the robot when it is done mapping the whole world space. After this, we save the map created using the 'map_server' package. This process is referenced from- https://github.com/ROBOTIS-GIT/emanual/blob/master/docs/en/platform/turtlebot3/simulation.md#virtual-slam-with-turtlebot3.
+
+### How to run
 
 The step-by-step commands for this process are-
 ```
