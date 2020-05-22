@@ -146,10 +146,6 @@ roslaunch pursuit_evasion sim.launch world_index:=0 gui:=true
 roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:= path/to/map.yaml
 ```
 
-<p align="center">
-  <img src="images/SLAM_ROS.gif">
-</p>
-
 ### Object detection and tracking
 
 Once, the turtlebot3 can move autonomously around the world, the next task is to make the turtlebot3 detect the person in the Gazebo world and track it continuously.
