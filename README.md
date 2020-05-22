@@ -37,9 +37,11 @@ rosrun turtle_description my_initials_turtlesim.py
 ## 2. World building in Gazebo and robot interaction in it
 The purpose of this project was to understand and use ROS Gazebo simulator along with making a robot interact with that world. 
 The objective was to make a Gazebo world with a Turtlebot3 robot in it and teleoperate the robot to move to make the shape of letter ‘N’ in the world space built.
+
 The world which is a house-like structure was built with the help of the following Gazebo tutorials-
 1.	Building a world- http://gazebosim.org/tutorials?tut=build_world&cat=build_world
 2.	Building Editor- http://gazebosim.org/tutorials?tut=building_editor&cat=build_world
+
 Steps implemented to make the world with house structure are-
 1. A picture of a floorplan of consisting of 3 rooms was imported in the 2D view of the building editor. 
 2. Using the wall option from the palette, the outline of the floorplan was traced over to generate a structure with the walls in the 3D view. 
