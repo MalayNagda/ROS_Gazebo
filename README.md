@@ -180,3 +180,7 @@ roslaunch pursuit_evasion robot_amcl.launch map_file:= /home/malaynagda/catkin_w
 rosrun turtle_description rostocv.py
 roslaunch pursuit_evasion move_evader.launch world_index:=0
 ```
+
+<p align="center">
+  <img src="images/tracking.gif">
+</p>
