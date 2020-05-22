@@ -154,6 +154,10 @@ frameborder="0"
 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
 allowfullscreen></iframe>
 
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=U5weaj9NZcU"><img src="https://img.youtube.com/vi/U5weaj9NZcU/0.jpg" alt="IMAGE ALT TEXT"></a>
+</div>
+
 ### Object detection and tracking
 
 Once, the turtlebot3 can move autonomously around the world, the next task is to make the turtlebot3 detect the person in the Gazebo world and track it continuously.
