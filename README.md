@@ -42,6 +42,15 @@ The world which is a house-like structure was built with the help of the followi
 1.	Building a world- http://gazebosim.org/tutorials?tut=build_world&cat=build_world
 2.	Building Editor- http://gazebosim.org/tutorials?tut=building_editor&cat=build_world
 
+<p align="center">
+  <img src="images/house1.PNG">
+</p>
+<p align="center">
+  <img src="images/house2.PNG">
+</p>
+<p align="center">
+  <img src="images/house3.PNG">
+</p>
 Steps implemented to make the world with house structure are-
 1. A picture of a floorplan of consisting of 3 rooms was imported in the 2D view of the building editor. 
 2. Using the wall option from the palette, the outline of the floorplan was traced over to generate a structure with the walls in the 3D view. 
