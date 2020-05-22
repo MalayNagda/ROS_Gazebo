@@ -160,4 +160,6 @@ YOLO takes entire image in a single instance and predicts the bounding box coord
 <p align="center">
   <img src="images/YOLO1.jpg">
 </p>
-
+<p align="center">
+  <img src="images/YOLO2.jpg">
+</p>
