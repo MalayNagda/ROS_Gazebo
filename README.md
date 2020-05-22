@@ -9,6 +9,7 @@ The entire project has three sections-
 
 ## 1. Introduction to ROS
 The purpose of this assignment was to get acquainted with the fundamentals of ROS- how to create a ROS workspace, packages, topics, nodes, messages, publishing and subscribing messages.
+
 The objective was to write a node that makes the turtlesim write the first letter of my last name which is ‘N’. First, I created a workspace and package 'nodes' within that workspace and then made a node ‘my_initials_turtlesim.py’ in that package. This node can be seen in the similar folder structure above. 
 
 ### Code Explanation
@@ -36,6 +37,7 @@ rosrun turtle_description my_initials_turtlesim.py
 ```
 ## 2. World building in Gazebo and robot interaction in it
 The purpose of this project was to understand and use ROS Gazebo simulator along with making a robot interact with that world. 
+
 The objective was to make a Gazebo world with a Turtlebot3 robot in it and teleoperate the robot to move to make the shape of letter ‘N’ in the world space built.
 
 The world which is a house-like structure was built with the help of the following Gazebo tutorials-
@@ -59,5 +61,11 @@ Steps implemented to make the world with house structure are-
 3. Next, the doors and windows were added to the structure according to their placings in the 2D floorplan image along with two café tables as obstacles. 
 4. Lastly, the walls material and colour were changed. 
 5. We saved the created model of a house as a .sdf file in the turtle_gazebo package that was created for this project. 
+
+The turtlebot3 robot supposed to be launched in the house world built is part of the turtlebot3 package which can be found at- https://github.com/ROBOTIS-GIT/turtlebot3. More details about the package can be found at- http://wiki.ros.org/turtlebot3. 
+The ‘turtle_gazebo’ package created in this project consists of the world file in the worlds folder; the world file contains the house model that we created using building editor along with the default sun and the ground plane models. This world file was referenced in the launch file ‘turtle_world’ which was to be launched in an empty world. The launch file also contains a robot spawn method which uses a small python script called spawn model to make a service call request to the gaebo_ros ROS node (named simply "gazebo" in the rostopic namespace) to add a custom URDF into Gazebo which in our case is the turtlebot3 model with a camera attached to the ‘base_scan’ link of the turtlebot3 robot model. 
+The camera is not attached by default to the turtlebot3. The code to add a camera to the turtlebot3 was added in the ‘turtlebot3_burger.urdf.xacro’ file. The code to capture images from the camera was added in the ‘turtlebot3_burger.gazebo.xacro’ file. Both of these xacro files are in the ‘turtlebot3_description’ package within the turtlebot3 package referenced above. The reference used for adding a camera and capturing images is- http://gazebosim.org/tutorials?tut=ros_gzplugins
+For running the entire simulation, the launch file is executed which initiates the gazebo environment with the house and the turtlebot3 in it. Then we launch the rviz environment to see the view from the turtlebot3’s perspective. We run the node path.py in the turtle_description package. In the rviz environment we add a path.py node to the topic ‘Path’ to trace the trajectory of the turtlebot3 as it moved around the house and made the letter ‘N’ in the end. Lastly we run the node ‘my_initials.py’ so that turtlebot3 starts traversing around the house and the letter ‘N’.
+
 
 ## 3. SLAM, object detection and tracking
