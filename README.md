@@ -146,20 +146,8 @@ roslaunch pursuit_evasion sim.launch world_index:=0 gui:=true
 roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:= path/to/map.yaml
 ```
 
-[![IMAGE ALT TEXT HERE](https://youtu.be/U5weaj9NZcU/0.jpg)](https://www.youtube.com/watch?v=U5weaj9NZcU "IMAGE ALT TEXT HERE")
-
-<iframe width="560" height="315" 
-src="https://www.youtube.com/embed/U5weaj9NZcU" 
-frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
-
-<div align="center">
-  <a href="https://www.youtube.com/watch?v=U5weaj9NZcU"><img src="https://img.youtube.com/vi/U5weaj9NZcU/0.jpg" alt="IMAGE ALT TEXT"></a>
-</div>
-
 <p align="center">
-  <img src="images/SLAM_ROS.gif">
+  <img src="images/SLAM_ROS1.gif">
 </p>
 
 ### Object detection and tracking
