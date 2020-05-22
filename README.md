@@ -158,8 +158,8 @@ The algorithm here used for object detection is YOLOv2. The YOLOv2 weights were 
 YOLO takes entire image in a single instance and predicts the bounding box coordinates(top_x,top_y,btm_x,btm_y) and class probabilities for these boxes. The frames detected are shown in the pictures below-
 
 <p align="center">
-  <img src="images/YOLO1.png">
+  <img src="images/YOLO1.jpg">
 </p>
 <p align="center">
-  <img src="images/YOLO2.png">
+  <img src="images/YOLO2.jpg">
 </p>
