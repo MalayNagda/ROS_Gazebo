@@ -71,5 +71,22 @@ The camera is not attached by default to the turtlebot3. The code to add a camer
 
 For running the entire simulation, the launch file is executed which initiates the gazebo environment with the house and the turtlebot3 in it. Then we launch the rviz environment to see the view from the turtlebot3’s perspective. We run the node path.py in the turtle_description package. In the rviz environment we add a path.py node to the topic ‘Path’ to trace the trajectory of the turtlebot3 as it moved around the house and made the letter ‘N’ in the end. Lastly we run the node ‘my_initials.py’ so that turtlebot3 starts traversing around the house and the letter ‘N’.
 
+### How to run
+
+In order to get the output as per the objective, run the following lines-
+```
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/catkin_ws/src/turtle_gazebo/models:~/catkin_ws/src/turtle_gazebo/worlds 
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/models:~/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds 
+export TURTLEBOT3_MODEL=burger 
+roslaunch turtle_gazebo turtle_world.launch 
+In new terminal- roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch 
+In new terminal- rosrun turtle_description my_initials.py 
+In new terminal- rosrun turtle_description path.py 
+```
+
+The path traversed by the turtlebot3 in the Gazebo house world as observed in rviz can be seen below-
+<p align="center">
+  <img src="images/rviz_output.png">
+</p>
 
 ## 3. SLAM, object detection and tracking
