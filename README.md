@@ -46,10 +46,10 @@ The world which is a house-like structure was built with the help of the followi
   <img src="images/house1.png">
 </p>
 <p align="center">
-  <img src="images/house2.PNG">
+  <img src="images/house2.png">
 </p>
 <p align="center">
-  <img src="images/house3.PNG">
+  <img src="images/house3.png">
 </p>
 Steps implemented to make the world with house structure are-
 1. A picture of a floorplan of consisting of 3 rooms was imported in the 2D view of the building editor. 
