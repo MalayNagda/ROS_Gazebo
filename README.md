@@ -166,6 +166,8 @@ YOLO takes entire image in a single instance and predicts the bounding box coord
 
 The evader is tracked using bounding box values of the evader detected by the YOLO. The center along horizontal axis (i.e. orientation in z-direction) of the bounding box created in the image captured by the turtlebot3 camera is used as reference to move turtle bot left or right. PoseStamped messages to the pursuer (turtlebot3) topic '/tb3_0/move_base_simple/goal' are published as goals to move it in a particular direction. A 20-pixel threshold range is used for the same. The turtlebot3 turns left whenever it detects any value lesser than this range and turns right when it detects any value greater than this range (As the origin of image frame is at top left corner). The center along vertical axis of the bounding box of the detected person cannot be used as this only tells how far the subject is but not the direction and the reference frames of the environment measurements and the image captured by the turtle bot are different. So, the distances in the directions from the image world to the environment cannot be mapped. 
 
+#### How to run
+
 The steps for this process are-
 ```
 roslaunch pursuit_evasion robot_amcl.launch map_file:= /home/malaynagda/catkin_ws/src/pursuit_evasion/maps/map.yaml world_index:=0
