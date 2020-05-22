@@ -92,7 +92,7 @@ In new terminal- rosrun turtle_description path.py
 ```
 turtlebot3 moving around the house in Gazebo simulator along with turtlebot3 camera perspective in rviz can be seen below-
 <p align="center">
-  <img src="images/house_turtlebot3.gif">
+  <img src="images/house_turtlebot3_gif.gif">
 </p>
 
 The path traversed by the turtlebot3 in the Gazebo house world as observed in rviz can be seen below-
