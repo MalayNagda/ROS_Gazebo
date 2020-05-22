@@ -147,7 +147,7 @@ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:= path/to/
 ```
 
 <p align="center">
-  <img src="images/SLAM_ROS.gif">
+  <img src="images/SLAM_ROS1.gif">
 </p>
 
 ### Object detection and tracking
