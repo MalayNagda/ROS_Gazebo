@@ -1,5 +1,5 @@
 # ROS_Gazebo
- A project showcasing perception in robotics with ROS, Gazebo simulaor and OpenCV. It involves simulation for navigation, SLAM, object detection and tracking using turtlebot3 ROS package.
+ A project showcasing perception in robotics with ROS, Gazebo simulator and OpenCV. It involves simulation for navigation, SLAM, object detection and tracking using turtlebot3 ROS package.
  
 ## Overview
 The entire project has three sections-
