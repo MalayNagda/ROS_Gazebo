@@ -30,7 +30,7 @@ The objective was to write a node that makes the turtlesim write the first lette
 ### Node code explanation
 To make the turtlesim move, we publish messages to the ROS topic cmd_vel. For the rostopic of cmd_vel, the message type is geometry_msgs/Twist which expects two vectors (one for linear velocity and the other for angular velocity) with three float64 values each for the three axes. I initialized them to zero values and published the same to the topic.
  
-The letter ‘N’ is represented by three edges. First, I turn the turtle by a specific angle by passing the angle value by which I want to move the turtle, to the z component of angular velocity vector. Since angular velocity is directly proportional to the angle (with respect to a fixed point), I simply publish the desired angle in radians to the topic cmd_vel. After moving the turtle at a desired angle, I had to move the turtle forward by a particular distance for making the edges of the letter ‘N’. To ensure both the parallel edges of letter ‘N’ are of the same length, I passed the linear velocity of value 1 to the x component of linear velocity vector and kept on publishing it till the turtle had moved by the specified distance. I calculated the distance using ‘Distance= Speed x (Current time- Initial time)’.
+The letter ‘N’ is represented by three edges. First, I turn the turtle by a specific angle by passing the angle value by which I want to move the turtle, to the z component of angular velocity vector. Since angular velocity is directly proportional to the angle (with respect to a fixed point), I simply publish the desired angle in radians to the topic cmd_vel. After moving the turtle at a desired angle, I had to move the turtle forward by a particular distance for making the edges of the letter ‘N’. To ensure both the parallel edges of letter ‘N’ are of the same length, I passed the linear velocity of value 1 to the x component of linear velocity vector and kept on publishing it till the turtle had moved by the specified distance. I calculated the distance using ‘Distance= Speed x (Current time - Initial time)’.
  
 After publishing each desired angular and linear velocity, the program waits for 3 seconds with the help of the command ‘time.sleep(3)’ to ensure the turtle has completed moving with the published desired velocity value. After this, I have published 0 value to the cmd_vel to make sure the turtle moves only with the velocity value specified in the next publish command. 
 
@@ -44,14 +44,14 @@ The desired linear velocity and angular velocity values were specified in arrays
   <img src="images/turtlesim_letterN.PNG">
 </p>
 
-In order to get the output as seen above, run the following two lines, each in a separate terminal tab/window-
+In order to get the output as seen above, run the following two lines, each in a separate Ubuntu terminal tab/window-
 
 ```
 rosrun turtlesim turtlesim_node
 rosrun turtle_description my_initials_turtlesim.py
 ```
 ## 2. World building in Gazebo and robot interaction in it
-The purpose of this project was to understand and use ROS Gazebo simulator along with making a robot interact with that world. 
+The purpose of this project was to understand and use ROS Gazebo simulator along with making a robot interact in a Gazebo world. 
 
 The objective was to make a Gazebo world with a Turtlebot3 robot in it and teleoperate the robot to move to make the shape of letter ‘N’ in the world space built.
 
@@ -87,15 +87,17 @@ The house with the turtlebot3 in it is as seen below-
   <img src="images/house_turtlebot3.png">
 </p>
 
-The ‘turtle_gazebo’ package created in this project consists of the world file in the worlds folder; the world file contains the house model that we created using building editor along with the default sun and the ground plane models. This world file was referenced in the launch file ‘turtle_world’ which was to be launched in an empty world. The launch file also contains a robot spawn method which uses a small python script called spawn model to make a service call request to the gaebo_ros ROS node (named simply "gazebo" in the rostopic namespace) to add a custom URDF into Gazebo which in our case is the turtlebot3 model with a camera attached to the ‘base_scan’ link of the turtlebot3 robot model. 
+The ‘turtle_gazebo’ package created in this project consists of the world file in the worlds folder; the world file contains the house model that we created using building editor along with the default sun and the ground plane models. 
+
+This world file was referenced in the launch file ‘turtle_world’ which was to be launched in an empty world. The launch file also contains a robot spawn method which uses a small python script called spawn model to make a service call request to the gaebo_ros ROS node (named simply "gazebo" in the rostopic namespace) to add a custom URDF into Gazebo which in our case is the turtlebot3 model with a camera attached to the ‘base_scan’ link of the turtlebot3 robot model. 
 
 The camera is not attached by default to the turtlebot3. The code to add a camera to the turtlebot3 was added in the ‘turtlebot3_burger.urdf.xacro’ file. The code to capture images from the camera was added in the ‘turtlebot3_burger.gazebo.xacro’ file. Both of these xacro files are in the ‘turtlebot3_description’ package within the turtlebot3 package referenced above. The reference used for adding a camera and capturing images is- http://gazebosim.org/tutorials?tut=ros_gzplugins
 
-For running the entire simulation, the launch file is executed which initiates the gazebo environment with the house and the turtlebot3 in it. Then we launch the rviz environment to see the view from the turtlebot3’s perspective. We run the node path.py in the turtle_description package. In the rviz environment we add a path.py node to the topic ‘Path’ to trace the trajectory of the turtlebot3 as it moved around the house and made the letter ‘N’ in the end. Lastly we run the node ‘my_initials.py’ so that turtlebot3 starts traversing around the house and the letter ‘N’.
+For running the entire simulation, the launch file is executed which initiates the gazebo environment with the house and the turtlebot3 in it. Then we launch the rviz environment to see the view from the turtlebot3’s perspective. We run the node path.py present in the turtle_description package. In the rviz environment we add a path.py node to the topic ‘Path’ to trace the trajectory of the turtlebot3 as it moved around the house and made the letter ‘N’ in the end. Lastly we run the node ‘my_initials.py’ so that turtlebot3 starts traversing around the house and the letter ‘N’.
 
 ### How to run
 
-In order to get the output as per the objective, run the following lines-
+In order to get the output as per the objective, run the following lines in Ubuntu terminal tabs/windows-
 ```
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/catkin_ws/src/turtle_gazebo/models:~/catkin_ws/src/turtle_gazebo/worlds 
 export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/models:~/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds 
@@ -129,11 +131,11 @@ First, we create a map of the world using SLAM and turtlebot3.
 
 The slam_gmapping package can be found at- https://github.com/ros-perception/slam_gmapping with more details at- http://wiki.ros.org/gmapping.
 
-The Gazebo simulator with a world and a gmapping node to start the process of creating a map was first initiated using a launch file provided by the Professor and can be found in the 'pursuit_evasion' package. This is followed by using the 'turtlebot3_teleop package' which allows the teleoperating the turtlebot3 using the keyboard to move the turtlebot3 around the Gazebo world to create a map of that world space. At the same time, this process is visualized in rviz in real-time to see how much of the world has already been mapped by the turtlebot3 and end teleoperating the robot when it is done mapping the whole world space. After this, we save the map created using the 'map_server' package. This process is referenced from- https://github.com/ROBOTIS-GIT/emanual/blob/master/docs/en/platform/turtlebot3/simulation.md#virtual-slam-with-turtlebot3.
+The Gazebo simulator with a world and a gmapping node to start the process of creating a map was first initiated using a launch file provided by Professor Duo and can be found in the 'pursuit_evasion' package. This is followed by using the 'turtlebot3_teleop package' which allows the teleoperating the turtlebot3 using the keyboard to move the turtlebot3 around the Gazebo world to create a map of that world space. At the same time, this process is visualized in rviz in real-time to see how much of the world has already been mapped by the turtlebot3 and end teleoperating the robot when it is done mapping the whole world space. After this, we save the map created using the 'map_server' package. This process is referenced from- https://github.com/ROBOTIS-GIT/emanual/blob/master/docs/en/platform/turtlebot3/simulation.md#virtual-slam-with-turtlebot3.
 
 #### How to run
 
-The step-by-step commands for this process are-
+The step-by-step commands for this process in Ubuntu terminal tab/window are-
 ```
 roslaunch pursuit_evasion robot_mapping.launch world_index:=0 gui:=true
 roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
@@ -155,7 +157,7 @@ The black borders in the figure represent the boundaries of the obstacle as dete
 After the map is created, turtlebot3 can use it to move around the world autonomously.
 
 #### Process explanation
-The " turtlebot3_navigation " package provides an abstract way to load the map you created above and to use it with the " move_base " package which is a part of the ROS navigation stack to navigate in the known environment (the map created previously) by sending goal locations (using the ‘2D Nav Goal’ button) to turtlebot3 using RViz. This step helped me in understanding how the navigation stack works and how to autonomously move in a known map while avoiding obstacles. 
+The " turtlebot3_navigation " package provides an abstract way to load the map you created above and to use it with the " move_base " package which is a part of the ROS navigation stack to navigate in the known environment (the map created previously) by sending goal locations (using the ‘2D Nav Goal’ button in RViz) to turtlebot3 using RViz. This step helped me in understanding how the navigation stack works and how to autonomously move in a known map while avoiding obstacles. 
 
 The reference used for this process is- https://github.com/ROBOTIS-GIT/emanual/blob/master/docs/en/platform/turtlebot3/simulation.md#virtual-navigation-with-turtlebot3. The move_base package can be found at- https://github.com/ros-planning/navigation with more details at- http://wiki.ros.org/move_base.
 
@@ -163,7 +165,7 @@ First, we launch the world file and then load the map created previously using t
 
 #### How to run
 
-The steps for this process are-
+The steps for this process in Ubuntu terminal tab/window are-
 ```
 roslaunch pursuit_evasion sim.launch world_index:=0 gui:=true
 roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:= path/to/map.yaml
@@ -180,7 +182,7 @@ Once, the turtlebot3 can move autonomously around the world, the next task is to
 
 #### Process explanation
 
-A world file provided by Professor (with turtlebot3 and a human model) is launched along with the map created earlier. The task is for the turtlebot3 to detect and track the human using the camera attached previously on turtlebot3. In order to do so, firstly, a node is created which subscribes to the image topic of the turtlebot3 camera. But ROS produces image messages of the form ‘sensor_msgs/Image’ which are not compatible with OpenCV. The cv_bridge package helps in converting the ROS image messages to OpenCV image representation which can used for perception. 
+A world file provided by Professor Duo (with turtlebot3 and a human model) is launched along with the map created earlier. The task is for the turtlebot3 to detect and track the human using the camera attached previously on turtlebot3. In order to do so, firstly, a node is created which subscribes to the image topic of the turtlebot3 camera. But ROS produces image messages of the form ‘sensor_msgs/Image’ which are not compatible with OpenCV. The cv_bridge package helps in converting the ROS image messages to OpenCV image representation which can used for perception. 
 
 The image converted by ‘cv_bridge’ is used to detect and track the person model if present in the image. 
 The algorithm here used for object detection is YOLOv2. The YOLOv2 weights were downloaded from https://pjreddie.com/media/files/yolov2.weights. Darkflow framework (https://github.com/thtrieu/darkflow) is used for executing YOLOv2 which is a Tensorflow version of Darknet. Once the image taken from the turtlebot3 camera is converted to the required form using cv_bridge, it is then passed into tfnet.return_predict() in the form of a numpy array which returns what kind of object is detected by the turtlebot.
@@ -197,7 +199,7 @@ The evader is tracked using bounding box values of the evader detected by the YO
 
 #### How to run
 
-The steps for this process are-
+The steps for this process in Ubuntu terminal tab/window are-
 ```
 roslaunch pursuit_evasion robot_amcl.launch map_file:= /home/malaynagda/catkin_ws/src/pursuit_evasion/maps/map.yaml world_index:=0
 rosrun turtle_description rostocv.py
@@ -210,7 +212,9 @@ The turtlebot3(pursuer) can be seen tracking the human(evader) below-
 </p>
 
 ## Authors
-* Malay Nagda
+* Malay Nagda- Introduction to ROS, World building in Gazebo and robot interaction in it, SLAM, object detection and tracking
+* Anusha Vaidya- World building in Gazebo and robot interaction in it
+* Karthik Kashinath Kulkarni- World building in Gazebo and robot interaction in it
 
 ## Acknowledgements
 This project was a part of a graduate course at Arizona Sate University- Perception in Robotics as taught and resources provided by Dr. Yezhou Yang and Duo Lu. 
