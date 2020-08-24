@@ -12,6 +12,8 @@
 * [openslam_gmapping package](https://github.com/ros-perception/openslam_gmapping)
 * [navigation package](https://github.com/ros-planning/navigation)
 * [vision_opencv](https://github.com/ros-perception/vision_opencv/tree/melodic)
+* [darkflow](https://github.com/thtrieu/darkflow)
+* TensorFlow 1.x
 
 Tested on
 * Ubuntu 18.04.4 LTS, ROS Melodic
