@@ -1,7 +1,22 @@
 # ROS_Gazebo
  A project showcasing perception in robotics with ROS, Gazebo simulator and OpenCV. It involves simulation for navigation, SLAM, object detection and tracking using turtlebot3 ROS package.
  
-## Overview
+## Dependencies
+* Ubuntu 
+* ROS Melodic
+* Gazebo (gazebo_ros_pkgs)
+* [turtlebot3 package](https://github.com/ROBOTIS-GIT/turtlebot3)
+* [slam_gmapping package](https://github.com/ros-perception/slam_gmapping)
+* [turtlebot3_simulations package](https://github.com/ROBOTIS-GIT/turtlebot3_simulations)
+* [turtlebot3_msgs](https://github.com/ROBOTIS-GIT/turtlebot3_msgs)
+* [openslam_gmapping package](https://github.com/ros-perception/openslam_gmapping)
+* [navigation package](https://github.com/ros-planning/navigation)
+* [vision_opencv](https://github.com/ros-perception/vision_opencv/tree/melodic)
+
+Tested on
+* Ubuntu 18.04.4 LTS, ROS Melodic
+ 
+## Deployment Overview
 The entire project has three sections-
 1. [Introduction to ROS](#1-introduction-to-ros)
 2. [World building in Gazebo and robot interaction in it](#2-world-building-in-gazebo-and-robot-interaction-in-it)
@@ -10,7 +25,7 @@ The entire project has three sections-
 ## 1. Introduction to ROS
 The purpose of this assignment was to get acquainted with the fundamentals of ROS- how to create a ROS workspace, packages, topics, nodes, messages, publishing and subscribing messages.
 
-The objective was to write a node that makes the turtlesim write the first letter of my last name which is ‘N’. First, I created a workspace and package 'nodes' within that workspace and then made a node ‘my_initials_turtlesim.py’ in that package. This node can be seen in the similar folder structure above. 
+The objective was to write a node that makes the turtlesim write the first letter of my last name which is ‘N’. First, I created a workspace and package 'nodes' within that workspace and then made a node ‘my_initials_turtlesim.py’ in that package. This node can be seen in the similar folder structure above- ./nodes/my_initials_turtlesim.py 
 
 ### Node code explanation
 To make the turtlesim move, we publish messages to the ROS topic cmd_vel. For the rostopic of cmd_vel, the message type is geometry_msgs/Twist which expects two vectors (one for linear velocity and the other for angular velocity) with three float64 values each for the three axes. I initialized them to zero values and published the same to the topic.
@@ -193,3 +208,9 @@ The turtlebot3(pursuer) can be seen tracking the human(evader) below-
 <p align="center">
   <img src="images/tracking.gif">
 </p>
+
+## Authors
+* Malay Nagda
+
+## Acknowledgements
+This project was a part of a graduate course at Arizona Sate University- Perception in Robotics as taught and resources provided by Dr. Yezhou Yang and Duo Lu. 
