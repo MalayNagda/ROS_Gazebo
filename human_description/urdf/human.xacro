@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+
+<robot name="human" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Constants for robot dimensions -->
+    <xacro:property name="mass" value="80"/> <!-- arbitrary value for mass -->
+    <xacro:property name="width" value="0.1"/> <!-- Square dimensions (widthxwidth) of beams -->
+    <xacro:property name="height1" value="2"/> <!-- Link 1 -->
+    <xacro:property name="camera_link" value="0.05"/> <!-- Size of square 'camera' box -->
+    <xacro:property name="bottom_col" value="0.01"/>
+    <xacro:property name="camera_offset" value="-0.2"/>
+    <xacro:property name="link_offset" value="0.02"/>
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+    <xacro:property name="parent" value="base_link"/>
+    <xacro:property name="prefix" value="person"/>
+
+    <xacro:property name="cam_px" value="0.2"/>
+    <xacro:property name="cam_pz" value="1.5"/>
+    <xacro:property name="cam_or" value="0"/>
+    <xacro:property name="cam_op" value="${M_PI/4}"/>
+    <xacro:property name="cam_oy" value="0"/>
+
+    <xacro:property name="M_SCALE" value="0.001"/>
+    <xacro:property name="asus_xtion_pro_cam_py" value="0.0205"/>
+    <xacro:property name="asus_xtion_pro_depth_rel_rgb_py" value="0.0270"/>
+    <xacro:property name="asus_xtion_pro_cam_rel_rgb_py" value="-0.0220"/>
+
+    <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+    <xacro:include filename="$(find human_description)/urdf/human.gazebo"/>
+    <!-- Import Rviz colors -->
+    <xacro:include filename="$(find human_description)/urdf/materials.xacro"/>
+<!--     <xacro:include filename="$(find human_description)/urdf/sensors/asus_xtion_pro.urdf.xacro"/> -->
+    
+
+    <link name="base_footprint"/>
+    <!--
+       Base link is set at the bottom of the base mould.
+       This is done to be compatible with the way base link
+       was configured for turtlebot 1. Refer to
+
+       https://github.com/turtlebot/turtlebot/issues/40
+
+       To put the base link at the more oft used wheel
+       axis, set the z-distance from the base_footprint
+       to 0.352.
+      -->
+    <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0.0102" rpy="0 0 0" />
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
+    </joint>
+
+
+    <!-- Base Link -->
+    <link name="base_link">
+        <!-- <kinematic>1</kinematic> -->
+        <inertial>
+            <origin xyz="0 0 -0.02" rpy="0 0 0"/>
+            <mass value="${mass}"/>
+            <inertia
+                    ixx="${mass / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+                    iyy="${mass / 12.0 * (height1*height1 + width*width)}" iyz="0.0"
+                    izz="${mass / 12.0 * (width*width + width*width)}"/>
+        </inertial>
+
+        <collision name="bottom">
+            <origin xyz="0 0 -0.01" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.02" radius="0.25"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0.2</mu>
+                        <mu2>0.2</mu2>
+                        <slip1>0.0</slip1>
+                        <slip2>0.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+
+       <!--  <collision name="body">
+            <origin xyz="0 0 0" rpy="0.04 0 1.57"/>
+            <geometry>
+                <mesh filename="package://human_description/meshes/standing.dae"/>
+            </geometry>
+        </collision> -->
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0.04 0 1.57"/>
+            <geometry>
+                <mesh filename="package://human_description/meshes/standing.dae"/>
+            </geometry>
+            <!-- <material name="orange"/> -->
+        </visual>
+    </link>
+
+    <joint name="${prefix}_camera_rgb_joint" type="fixed">
+    <origin xyz="${cam_px} ${asus_xtion_pro_cam_py} ${cam_pz}"
+      rpy="${cam_or} ${cam_op} ${cam_oy}"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_camera_rgb_frame"/>
+    </joint>
+
+    <link name="${prefix}_camera_rgb_frame"/>
+
+    <joint name="${prefix}_camera_rgb_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+      <parent link="${prefix}_camera_rgb_frame"/>
+      <child link="${prefix}_camera_rgb_optical_frame"/>
+    </joint>
+    <link name="${prefix}_camera_rgb_optical_frame"/>
+
+    <joint name="camera_joint" type="fixed">
+      <origin xyz="0 ${asus_xtion_pro_cam_rel_rgb_py} 0"
+        rpy="0 0 0"/>
+        <parent link="${prefix}_camera_rgb_frame"/>
+        <child link="${prefix}_camera_link"/>
+      </joint>
+
+      <link name="${prefix}_camera_link">
+        <!-- <visual>
+          <origin xyz="-0.015 0.0035 0.004" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://turtlebot3_description/meshes/sensors/astra.dae" scale="0.5 0.5 0.5"/>
+          </geometry>
+        </visual> -->
+
+<!--         <inertial>
+          <mass value="0.170"/>
+          <origin xyz="0 0 0"/>
+          <inertia ixx="0.001152600" ixy="0.0" ixz="0.0"
+           iyy="0.000148934" iyz="0.0"
+           izz="0.001154654"/>
+         </inertial> -->
+       </link>
+
+       <joint name="${prefix}_camera_depth_joint" type="fixed">
+        <origin xyz="0 ${asus_xtion_pro_depth_rel_rgb_py} 0" rpy="0 0 0"/>
+        <parent link="${prefix}_camera_rgb_frame"/>
+        <child link="${prefix}_camera_depth_frame"/>
+      </joint>
+
+      <link name="${prefix}_camera_depth_frame"/>
+
+      <joint name="${prefix}_camera_depth_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+        <parent link="${prefix}_camera_depth_frame"/>
+        <child link="${prefix}_camera_depth_optical_frame"/>
+      </joint>
+      
+      <link name="${prefix}_camera_depth_optical_frame"/>
+
+       <joint name="scan_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_scan"/>
+        <origin xyz="-0.032 0 0.172" rpy="0 0 0"/>
+      </joint>
+
+  <link name="base_scan">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://turtlebot3_description/meshes/sensors/lds.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0.015 0 -0.0065" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.0315" radius="0.055"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="0.114" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+       iyy="0.001" iyz="0.0"
+       izz="0.001" />
+     </inertial>
+   </link>
+
+</robot>

@@ -1,0 +1,23 @@
+# Overall filter parameters
+base_frame_id:    human_base
+global_frame_id:  map
+min_particles:    10
+max_particles:    300
+initial_pose_x:   0.0
+initial_pose_y:   0.0
+initial_pose_a:   0.0
+
+# Laser model parameters
+laser_model_type: likelihood_field
+laser_z_hit:      0.997
+laser_z_rand:     0.003
+laser_max_beams:  90
+
+# Odometry model parameters
+odom_frame_id:    odom
+odom_model_type:  omni # use diff-corrected for skid drive or diff drive
+odom_alpha1:      0.2
+odom_alpha2:      0.2
+odom_alpha3:      0.2
+odom_alpha4:      0.2
+odom_alpha5:      0.2
